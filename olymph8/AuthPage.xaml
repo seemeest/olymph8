@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:olymph8"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="AuthPage">
     <Grid  Background="#FFD6D6D6">
-        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" >
             <TextBlock Text="Регистрация" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
             <Border   Margin="15" Background="White" CornerRadius="20"  Padding="10"  BorderThickness="1"  HorizontalAlignment="Center" VerticalAlignment="Top"  >
 
@@ -21,25 +22,25 @@
 
                 <StackPanel>
                     <TextBlock Text="Логин" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox MinWidth="300"  MaxWidth="600"   MinHeight="40" MaxHeight="60" Name="login" VerticalContentAlignment="Center" FontSize="20" />
+                    <TextBox   MinWidth="300"  MaxWidth="600"   MinHeight="40" MaxHeight="60" Name="login" VerticalContentAlignment="Center" FontSize="20" />
                 </StackPanel>
             </Border>
 
             <Border   Margin="15" Background="White" CornerRadius="20"  Padding="10"  BorderThickness="1"  HorizontalAlignment="Center" VerticalAlignment="Top"  >
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="40" Color="LightGray"  ShadowDepth="0">
-
-                    </DropShadowEffect>
+                    <DropShadowEffect BlurRadius="40" Color="LightGray"  ShadowDepth="0"/>
                 </Border.Effect>
+                
                 <StackPanel>
-                    <TextBlock Text="Пароль" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox MinWidth="300"  MaxWidth="600"   MinHeight="40" MaxHeight="60" x:Name="pasword"  VerticalContentAlignment="Center" FontSize="20"/>
+                    <TextBlock  Text="Пароль" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center"></TextBlock>
+                  
+                    <TextBox  MinWidth="300"  MaxWidth="600"   MinHeight="40" MaxHeight="60" x:Name="pasword"  VerticalContentAlignment="Center" FontSize="20"/>
                 </StackPanel>
 
             </Border>
 
             <TextBlock Text="неверный логин или пароль "  HorizontalAlignment="Center" Foreground="Red" Margin="3" x:Name="AuthErr" Visibility="Hidden"/>
-            <Button x:Name="button" Content="Button"  HorizontalAlignment="Center" VerticalAlignment="Top"  Background="#FF5151F1" BorderBrush="#FFD6D6D6" FontSize="20" Click="LogIn_Click" >
+            <Button x:Name="button" Content="Sing Up"  HorizontalAlignment="Center" VerticalAlignment="Top"   FontSize="20" Click="LogIn_Click" Margin=" 0 0 0 5" Height="35" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -53,6 +54,7 @@
             </Button>
 
         </StackPanel>
+  
 
 
 
