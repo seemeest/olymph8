@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,6 +25,14 @@ namespace olymph8
         public AuthPage()
         {
             InitializeComponent();
+            //AuthMenu
+
+            DoubleAnimation AuthMenuAnimation = new DoubleAnimation();
+
+            AuthMenuAnimation.From = 0;
+            AuthMenuAnimation.To = 400;
+            AuthMenuAnimation.Duration = TimeSpan.FromMilliseconds(600);
+            AuthMenu.BeginAnimation(StackPanel.WidthProperty, AuthMenuAnimation);
         }
         DataBaeController dataBaeController = new DataBaeController();
         private void LogIn_Click(object sender, RoutedEventArgs e)

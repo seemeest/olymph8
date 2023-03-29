@@ -8,9 +8,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Title="AuthPage">
-    <Grid  Background="#FFD6D6D6">
-        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="Регистрация" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
+    <Grid  Background="#FAFAFA">
+
+
+        <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="AuthMenu" Width="400">
+
+            <TextBlock Text="Авторизация" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
             <Border   Margin="15" Background="White" CornerRadius="20"  Padding="10"  BorderThickness="1"  HorizontalAlignment="Center" VerticalAlignment="Top"  >
 
 
@@ -30,16 +33,16 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="40" Color="LightGray"  ShadowDepth="0"/>
                 </Border.Effect>
-                
+
                 <StackPanel>
                     <TextBlock  Text="Пароль" FontSize="25" FontWeight="DemiBold" HorizontalAlignment="Center"></TextBlock>
-                  
+
                     <TextBox  MinWidth="300"  MaxWidth="600"   MinHeight="40" MaxHeight="60" x:Name="pasword"  VerticalContentAlignment="Center" FontSize="20"/>
                 </StackPanel>
 
             </Border>
 
-            <TextBlock Text="неверный логин или пароль "  HorizontalAlignment="Center" Foreground="Red" Margin="3" x:Name="AuthErr" Visibility="Hidden"/>
+            <TextBlock Text="неверный логин или пароль "  HorizontalAlignment="Center" Foreground="Red" Margin="10" x:Name="AuthErr" Visibility="Hidden" FontSize="14" />
             <Button x:Name="button" Content="Sing Up"  HorizontalAlignment="Center" VerticalAlignment="Top"   FontSize="20" Click="LogIn_Click" Margin=" 0 0 0 5" Height="35" >
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -54,7 +57,7 @@
             </Button>
 
         </StackPanel>
-  
+
 
 
 
