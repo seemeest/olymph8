@@ -167,7 +167,7 @@ namespace olymph8.DataBasePole
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (reader.Read())   
                         {
                             Schedule scheduleItem = new Schedule();
                             scheduleItem.Id = (int)reader["s.id"];

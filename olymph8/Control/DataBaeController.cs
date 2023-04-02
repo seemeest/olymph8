@@ -111,7 +111,7 @@ namespace olymph8
             {
                 conn.Close();
             }
-            catch (Exception err) { }
+            catch{}
           
             try { conn.Open(); } catch (Exception err) { 
                 Console.WriteLine(err);  return false; }
