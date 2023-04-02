@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 
@@ -21,7 +24,7 @@ namespace olymph8
             InitializeComponent();
             controller= new DataBaeController();
 
-          
+
             List<string> list = controller.GetGroup();
             foreach (string item in list)
             {
@@ -37,20 +40,20 @@ namespace olymph8
         private void comboBox_MouseDown(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
-            if (comboBox.SelectedItem.ToString() == "Добавить")
-            {
-                Console.WriteLine("Add");
-            }
+            //if (comboBox.SelectedItem.ToString() == "Добавить")
+            //{
+            //    Console.WriteLine("Add");
+            //}
 
-            ComboBoxItem typeItem = (ComboBoxItem)comboBox.SelectedItem;
-            string value = typeItem.Content.ToString();
+            //ComboBoxItem typeItem = (ComboBoxItem)comboBox.SelectedItem;
+            //string value = typeItem.Content.ToString();
 
 
-            if (value == "Добавить")
-            {
+            //if (value == "Добавить")
+            //{
 
                
-            }
+            //}
 
         }
         int Otrows = 2;
@@ -92,17 +95,70 @@ namespace olymph8
 
               
                     MenuItem InfoMen = new MenuItem();
-                    InfoMen.Header = $" {textBox.GetValue(Grid.RowProperty)} {textBox.GetValue(Grid.ColumnProperty)} ";
+                    InfoMen.Header = $" Debug_Info RowProperty= {textBox.GetValue(Grid.RowProperty)}  ColumnProperty= {textBox.GetValue(Grid.ColumnProperty)} ";
+
+                    MenuItem DelAll=new MenuItem();
+                    DelAll.Header = "удалить всё";
+                    DelAll.Click += (ss, ee) =>
+                    {
+                        for (int jj = 0; jj < 10; jj++)
+                        {
+                            for (int ii = 0; ii < gridControl.Children.Count; ii++)
+                            {
+                                if (gridControl.Children[ii] is TextBox)
+                                {
+
+                                    gridControl.Children.RemoveAt(ii);
+
+                                }
+                            }
+                        }
+                    };
+
+                    InfoMen.Background = new SolidColorBrush(Colors.Red);
+                    InfoMen.Foreground = new SolidColorBrush(Colors.White);
+
+                                 
+                    MenuItem Copy = new MenuItem();
+                    Copy.Header = "Копировать";
+                    Copy.Command = ApplicationCommands.Copy;
+
+                    MenuItem Past = new MenuItem();
+                    Past.Header = "Вставить";
+                    Past.Command = ApplicationCommands.Paste;
+                    
+                    MenuItem Cut = new MenuItem();
+                    Cut.Header = "Стереть";
+                    Cut.Command = ApplicationCommands.Cut;
+                    MenuItem SelectAll = new MenuItem();
+                    SelectAll.Header = "Выделить";
+                    SelectAll.Command = ApplicationCommands.SelectAll;
+
+                    //MenuItem DelRowsText = new MenuItem();
+                    //DelRowsText.Header = "удалить текст";
+
+                    //DelRowsText.Click += (ss, ee) =>
+                    //{
+
+                    //}
+
+
+
 
                     delColum.Click += (ss, ee) =>
                     {
-                        
                         removeChildrenRows(i);
-                      
                     };
+                    contextmenu.Items.Add(InfoMen);
+
+                    contextmenu.Items.Add(Copy);
+                    contextmenu.Items.Add(Past);
+                    contextmenu.Items.Add(Cut);
+                    contextmenu.Items.Add(SelectAll);
 
                     contextmenu.Items.Add(delColum);
-                    contextmenu.Items.Add(InfoMen);
+                    contextmenu.Items.Add(DelAll);
+                    //contextmenu.Items.Add(DelRowsText);
                     gridControl.Children.Add(textBox); 
 
                 }
@@ -115,51 +171,38 @@ namespace olymph8
         {
             try
             {
-              
-                
                 index1--;
-
                 Console.WriteLine(index1);
-                for (int j = 0; j < 10; j++) 
-                    for (int i = 0; i < gridControl.Children.Count; i++)
-                    {
-                        if (gridControl.Children[i] is TextBox)
-                        {
-                            if (((TextBox)gridControl.Children[i]).GetValue(Grid.RowProperty).ToString() == index1.ToString()) 
-                            {
-                                gridControl.Children.RemoveAt(i);
-                            }
 
-                        }
+                var textBoxesToRemove = gridControl.Children.OfType<TextBox>()
+                    .Where(tb => tb.GetValue(Grid.RowProperty).ToString() == index1.ToString())
+                    .ToList();
 
-                    }       
-         
-                    for (int i = 0; i < gridControl.Children.Count; i++)
-                    {
-                        if (gridControl.Children[i] is TextBox)
-                        {
+                foreach (var tb in textBoxesToRemove)
+                {
+                    gridControl.Children.Remove(tb);
+                }
 
-                            if (int.Parse(((TextBox)gridControl.Children[i]).GetValue(Grid.RowProperty).ToString()) > int.Parse(index1.ToString()))
-                            {
+                if (Dorows > 2)
+                {
+                    Dorows--;
+                }
 
-                                
-                                int value = int.Parse(((TextBox)gridControl.Children[i]).GetValue(Grid.RowProperty).ToString());
-                                Console.WriteLine($"БОЛЬШЕ  {value}");
-                                ((TextBox)gridControl.Children[i]).SetValue(Grid.RowProperty, value - 1);
-                            }
-                            
+                if (Otrows > 2)
+                {
+                    Otrows--;
+                }
 
-                        }
-
-                    }
-                Dorows--;
-                Otrows--;
+                Console.WriteLine(gridControl.Children.Count);
             }
-             catch (Exception err) { Console.WriteLine(err); }
-            //gridControl.RowDefinitions.RemoveAt(index1);
-            Console.WriteLine(index1);
+            catch (Exception err)
+            {
+                Console.WriteLine(err);
+            }
 
+            Console.WriteLine(index1);
         }
+
 
         private void Button_Add_colum(object sender, RoutedEventArgs e)
         {
@@ -221,6 +264,18 @@ namespace olymph8
                     }
 
                 }
+            }
+
+
+            comboBox.Items.Clear();
+
+            List<string> list = controller.GetGroup();
+            foreach (string item in list)
+            {
+                string Name = item.Replace('_', '-');
+                ComboBoxItem comboBoxItem = new ComboBoxItem();
+                comboBoxItem.Content = Name;
+                comboBox.Items.Add(comboBoxItem);
             }
 
         }

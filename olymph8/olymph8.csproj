@@ -105,6 +105,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Control\GroupController.cs" />
+    <Compile Include="DataBasePole\Discipline.cs" />
+    <Compile Include="DataBasePole\FillingData.cs" />
+    <Compile Include="DataBasePole\Group.cs" />
+    <Compile Include="DataBasePole\Schedule.cs" />
+    <Compile Include="DataBasePole\Teacher.cs" />
     <Compile Include="Page\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>

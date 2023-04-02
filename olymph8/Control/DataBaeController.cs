@@ -19,11 +19,8 @@ namespace olymph8
         {
             conn = new MySqlConnection(connStr);
         }
-
         public bool auth(string username, string password)
         {
-
-
             string sql = $"SELECT * FROM users WHERE login = \"{username}\" and  password =\"{password}\"";
             try { conn.Open(); } catch (Exception err) { Console.WriteLine(err); }
             MySqlCommand command = new MySqlCommand(sql, conn);
@@ -51,30 +48,23 @@ namespace olymph8
             return false;
         }
 
+
         public List<string> GetGroup()
         {
             List<string> list = new List<string>();
-            try { conn.Open(); } catch (Exception err) { Console.WriteLine(err);}
-            MySqlCommand Create_table = new MySqlCommand("SELECT * FROM `GroupList`", conn);
-            Create_table.ExecuteNonQuery();
-
-            try
+            using (MySqlConnection conn = new MySqlConnection(connStr))
             {
-                MySqlDataReader reader = Create_table.ExecuteReader();
+                conn.Open();
+                MySqlCommand command = new MySqlCommand("SELECT * FROM `GroupList`", conn);
 
-                while (reader.Read())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-
-        
-                    list.Add(reader[1].ToString());
+                    while (reader.Read())
+                    {
+                        list.Add(reader.GetString(1));
+                    }
                 }
-
-                reader.Close();
-
-                
             }
-            catch { }
-            conn.Close();
             return list;
         }
         private bool SeachTabelName(string Name) {
@@ -122,7 +112,7 @@ namespace olymph8
                 conn.Close();
             }
             catch (Exception err) { }
-            //$"INSERT INTO {GroupName}( `name`, `Term1`, `FK1`, `Sm_Work1`, `Term2`, `FK2`, `Sm_Work2`, `Teacher`, `Konsult`) VALUES (`{name}`,`{Term1}`,`{FK1}`,`{Sm_Work1}` ,`{Term2}`,`{FK2}` ,`{Sm_Work2}`,`{Teacher}`,`{Konsult}`)
+          
             try { conn.Open(); } catch (Exception err) { 
                 Console.WriteLine(err);  return false; }
 
